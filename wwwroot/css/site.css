@@ -1,0 +1,89 @@
+:root {
+    --app-bg: #F4F6FA;
+    --card-bg: #FFFFFF;
+    --sidebar-width: 260px;
+    --primary-accent: #1E6BFF;
+}
+
+body {
+    font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background-color: var(--app-bg) !important;
+    color: #1F2430;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Sidebar Custom Styling */
+.sidebar {
+    width: var(--sidebar-width);
+    background-color: #FAFAFC !important;
+    border-color: #ECEEF4 !important;
+}
+
+.brand-logo {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #7C3AED, #1E6BFF);
+}
+
+.sidebar .nav-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    border-radius: 12px;
+    padding: 10px 14px;
+    transition: all 0.2s ease;
+}
+
+    .sidebar .nav-link.active {
+        background-color: #11141D !important;
+        color: #FFFFFF !important;
+        box-shadow: 0 4px 12px rgba(17, 20, 29, 0.15);
+    }
+
+    .sidebar .nav-link:not(.active):hover {
+        background-color: #F1F3F7;
+        color: #11141D !important;
+    }
+
+.sidebar-promo {
+    background: linear-gradient(145deg, #EEF2FF, #E0E7FF);
+    border: 1px solid #D5DEFF;
+}
+
+/* Layout Offsets */
+.main-content {
+    margin-left: var(--sidebar-width);
+    max-width: calc(100vw - var(--sidebar-width));
+}
+
+/* Card Styling Matching Reference */
+.saas-card {
+    background: var(--card-bg);
+    border-radius: 20px;
+    border: none;
+    box-shadow: 0 2px 14px rgba(27, 33, 48, 0.03);
+    padding: 1.5rem;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+    .saas-card:hover {
+        box-shadow: 0 6px 20px rgba(27, 33, 48, 0.06);
+    }
+
+/* Custom Search & Inputs */
+.search-bar .form-control,
+.search-bar .input-group-text {
+    border-color: #ECEEF4;
+    font-size: 0.88rem;
+}
+
+    .search-bar .form-control:focus {
+        box-shadow: none;
+        border-color: #ECEEF4;
+    }
+
+/* Stat Pill Cards */
+.stat-widget {
+    background: #F8F9FD;
+    border-radius: 16px;
+    padding: 1rem 1.25rem;
+}

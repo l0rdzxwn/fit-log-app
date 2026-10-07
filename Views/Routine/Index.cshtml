@@ -1,0 +1,133 @@
+﻿@model IEnumerable<dynamic>
+
+<div class="container-fluid p-0">
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold text-dark mb-1">Workout Dashboard</h3>
+            <p class="text-secondary small mb-0">Track today's lifts, active routines, and weekly volume.</p>
+        </div>
+        <div class="d-flex gap-2">
+            <button class="btn btn-dark rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2 shadow-sm">
+                <i class="bi bi-plus-lg"></i> New Routine
+            </button>
+        </div>
+    </div>
+
+    <!-- Upper Metrics Row (Charts + Stats) -->
+    <div class="row g-4 mb-4">
+        <!-- Weekly Muscle Distribution / Bar Chart Widget -->
+        <div class="col-lg-7">
+            <div class="saas-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h6 class="fw-bold mb-0 text-dark">Weekly Muscle Split</h6>
+                    <span class="text-primary small fw-bold bg-primary-subtle px-3 py-1 rounded-pill">Chest & Arms today</span>
+                </div>
+                
+                <!-- Mock Bar Indicator Columns -->
+                <div class="d-flex justify-content-between align-items-end pt-3 px-2" style="height: 160px;">
+                    <div class="text-center d-flex flex-column align-items-center gap-2">
+                        <div class="rounded-pill bg-light" style="width: 38px; height: 110px; position: relative;">
+                            <div class="bg-primary rounded-pill position-absolute bottom-0 w-100" style="height: 65%;"></div>
+                        </div>
+                        <span class="text-secondary small">Mon</span>
+                    </div>
+                    <div class="text-center d-flex flex-column align-items-center gap-2">
+                        <div class="rounded-pill bg-light" style="width: 38px; height: 110px; position: relative;">
+                            <div class="bg-primary rounded-pill position-absolute bottom-0 w-100" style="height: 90%;"></div>
+                        </div>
+                        <span class="text-secondary small">Tue</span>
+                    </div>
+                    <div class="text-center d-flex flex-column align-items-center gap-2">
+                        <div class="rounded-pill bg-light" style="width: 38px; height: 110px; position: relative;">
+                            <div class="bg-primary rounded-pill position-absolute bottom-0 w-100" style="height: 80%;"></div>
+                        </div>
+                        <span class="text-secondary small">Wed</span>
+                    </div>
+                    <div class="text-center d-flex flex-column align-items-center gap-2">
+                        <div class="rounded-pill bg-light" style="width: 38px; height: 110px; position: relative;">
+                            <div class="bg-info rounded-pill position-absolute bottom-0 w-100" style="height: 45%;"></div>
+                        </div>
+                        <span class="text-secondary small">Thu</span>
+                    </div>
+                    <div class="text-center d-flex flex-column align-items-center gap-2">
+                        <div class="rounded-pill bg-light" style="width: 38px; height: 110px;"></div>
+                        <span class="text-secondary small">Fri</span>
+                    </div>
+                    <div class="text-center d-flex flex-column align-items-center gap-2">
+                        <div class="rounded-pill bg-light" style="width: 38px; height: 110px;"></div>
+                        <span class="text-secondary small">Sat</span>
+                    </div>
+                    <div class="text-center d-flex flex-column align-items-center gap-2">
+                        <div class="rounded-pill bg-light" style="width: 38px; height: 110px;"></div>
+                        <span class="text-secondary small">Sun</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Metrics & Quick Stats -->
+        <div class="col-lg-5">
+            <div class="saas-card h-100">
+                <div class="d-flex justify-content-between align-items-center mb-3">
+                    <h6 class="fw-bold mb-0 text-dark">Routine Completion</h6>
+                    <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">On Track</span>
+                </div>
+                
+                <div class="d-flex align-items-center justify-content-around py-3">
+                    <div class="text-center">
+                        <div class="rounded-circle border border-4 border-primary p-3 d-inline-flex align-items-center justify-content-center mb-2" style="width: 75px; height: 75px;">
+                            <span class="fw-bold fs-5 text-dark">78%</span>
+                        </div>
+                        <div class="small text-secondary">Consistency</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="rounded-circle border border-4 border-info p-3 d-inline-flex align-items-center justify-content-center mb-2" style="width: 75px; height: 75px;">
+                            <span class="fw-bold fs-5 text-dark">18</span>
+                        </div>
+                        <div class="small text-secondary">Exercises Set</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Routines List (Styled as clean cards) -->
+    <div class="saas-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold text-dark mb-0">Active Routines</h6>
+            <span class="text-secondary small">3 routines planned this week</span>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="text-secondary small">
+                    <tr>
+                        <th class="ps-3 border-0">ROUTINE</th>
+                        <th class="border-0">TARGET MUSCLE</th>
+                        <th class="border-0">SCHEDULE</th>
+                        <th class="border-0 text-center">EXERCISES</th>
+                        <th class="border-0 text-end pe-3">ACTIONS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="ps-3">
+                            <span class="fw-bold text-dark">Push Hypertrophy</span>
+                        </td>
+                        <td>
+                            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">Chest & Triceps</span>
+                        </td>
+                        <td class="text-secondary small">Monday, Thursday</td>
+                        <td class="text-center">
+                            <span class="badge bg-light text-secondary rounded-pill border px-3 py-1">6 Exercises</span>
+                        </td>
+                        <td class="text-end pe-3">
+                            <a href="#" class="btn btn-sm btn-light rounded-pill px-3 fw-medium">View</a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,114 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - FitLog</title>
+
+    <!-- Google Fonts: Plus Jakarta Sans -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- Bootstrap 5 & Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body class="bg-body-tertiary">
+    <div class="d-flex min-vh-100">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar bg-white border-end d-flex flex-column p-3 position-fixed top-0 bottom-0 start-0 z-3">
+            <!-- App Brand -->
+            <div class="d-flex align-items-center gap-2 px-2 py-3 mb-3">
+                <div class="brand-logo rounded-circle d-flex align-items-center justify-content-center text-white">
+                    <i class="bi bi-lightning-charge-fill"></i>
+                </div>
+                <h5 class="fw-bold mb-0 text-dark">FitLog</h5>
+            </div>
+
+            <!-- Main Nav Links -->
+            <ul class="nav nav-pills flex-column gap-1 mb-auto">
+                <li class="nav-item">
+                    <a asp-controller="Routine" asp-action="Index" class="nav-link active d-flex align-items-center justify-content-between">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="bi bi-grid-fill"></i> Routines
+                        </span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-controller="Exercise" asp-action="Index" class="nav-link text-secondary d-flex align-items-center justify-content-between">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="bi bi-activity"></i> Exercises
+                        </span>
+                        <i class="bi bi-chevron-right small text-muted"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-secondary d-flex align-items-center justify-content-between">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="bi bi-graph-up-arrow"></i> Progress
+                        </span>
+                        <span class="badge bg-primary-subtle text-primary rounded-pill px-2 py-1">New</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link text-secondary d-flex align-items-center justify-content-between">
+                        <span class="d-flex align-items-center gap-2">
+                            <i class="bi bi-gear"></i> Settings
+                        </span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Floating Sidebar Callout Card (Inspired by the AI Assistant bubble) -->
+            <div class="sidebar-promo rounded-4 p-3 mb-3">
+                <div class="d-flex align-items-center justify-content-between mb-2">
+                    <span class="fw-bold text-dark small">Workout Streak 🔥</span>
+                    <button type="button" class="btn-close btn-close-white small" aria-label="Close" style="font-size: 0.6rem;"></button>
+                </div>
+                <p class="text-secondary small mb-2" style="font-size: 0.78rem;">You're on a 4-day streak! Log today's routine to hit your weekly goal.</p>
+                <div class="progress" style="height: 6px;">
+                    <div class="progress-bar bg-primary" role="progressbar" style="width: 80%"></div>
+                </div>
+            </div>
+
+            <!-- User Auth Footer -->
+            <div class="pt-2 border-top">
+                <partial name="_LoginPartial" />
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content flex-grow-1 p-4">
+            <!-- Top Bar -->
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <div class="d-flex align-items-center gap-2">
+                    <div class="input-group search-bar">
+                        <span class="input-group-text bg-white border-end-0 rounded-start-pill text-muted ps-3">
+                            <i class="bi bi-search"></i>
+                        </span>
+                        <input type="text" class="form-control bg-white border-start-0 rounded-end-pill py-2 pe-3 text-secondary" placeholder="Search exercises, routines...">
+                    </div>
+                </div>
+                <div class="d-flex align-items-center gap-3">
+                    <button class="btn btn-white border rounded-circle p-2 shadow-sm d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                        <i class="bi bi-bell text-secondary"></i>
+                    </button>
+                    <div class="d-flex align-items-center gap-2">
+                        <div class="rounded-circle bg-dark text-white fw-bold d-flex align-items-center justify-content-center" style="width: 40px; height: 40px;">
+                            @User.Identity?.Name?.Substring(0, 1).ToUpper()
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
