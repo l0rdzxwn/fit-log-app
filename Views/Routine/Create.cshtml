@@ -1,0 +1,62 @@
+﻿@model FitLogApp.Models.WorkoutRoutine
+
+@{
+    ViewData["Title"] = "Create Routine";
+}
+
+<div class="container-fluid p-0" style="max-width: 720px;">
+    <!-- Breadcrumb / Back Navigation -->
+    <div class="mb-3">
+        <a asp-action="Index" class="text-decoration-none text-secondary small d-inline-flex align-items-center gap-1">
+            <i class="bi bi-arrow-left"></i> Back to Routines
+        </a>
+    </div>
+
+    <!-- Main Card Container -->
+    <div class="saas-card shadow-sm border-0 p-4 p-md-5">
+        <div class="mb-4">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 mb-2 fw-semibold">New Routine</span>
+            <h3 class="fw-bold text-dark mb-1">Build Workout Split</h3>
+            <p class="text-secondary small mb-0">Organize your training days and target muscle groups.</p>
+        </div>
+
+        <form asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 py-2 small mb-4" role="alert"></div>
+
+            <!-- Routine Name Field -->
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-semibold text-dark small"></label>
+                <input asp-for="Name" class="form-control rounded-3 py-2 px-3" placeholder="e.g., Push Hypertrophy, Upper Body Power" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <!-- Target Muscle Group Field -->
+            <div class="mb-3">
+                <label asp-for="TargetMuscle" class="form-label fw-semibold text-dark small"></label>
+                <input asp-for="TargetMuscle" class="form-control rounded-3 py-2 px-3" placeholder="e.g., Chest & Triceps, Quads & Calves" />
+                <span asp-validation-for="TargetMuscle" class="text-danger small"></span>
+            </div>
+
+            <!-- Day of Week Field -->
+            <div class="mb-4">
+                <label asp-for="DaysOfWeek" class="form-label fw-semibold text-dark small"></label>
+                <input asp-for="DaysOfWeek" class="form-control rounded-3 py-2 px-3" placeholder="e.g., Monday, Thursday" />
+                <span asp-validation-for="DaysOfWeek" class="text-danger small"></span>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="d-flex align-items-center justify-content-end gap-2 pt-2 border-top">
+                <a asp-action="Index" class="btn btn-light rounded-pill px-4 py-2 text-secondary fw-semibold">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold shadow-sm">
+                    Save Routine
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

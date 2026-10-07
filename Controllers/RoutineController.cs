@@ -26,7 +26,29 @@ namespace FitLogApp.Controllers
             return View(routines);
         }
 
-        
+        [HttpGet]
+        public async Task<IActionResult> Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create([Bind("Name,TargetMuscle,DaysOfWeek")] WorkoutRoutine routine)
+        {
+            var currUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            routine.UserID = currUserID;
+
+            ModelState.Remove("UserID");
+            if (ModelState.IsValid)
+            {
+                await _context.Routines.AddAsync(routine);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+            
+            return View(routine);
+        }
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
