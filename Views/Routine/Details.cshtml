@@ -1,0 +1,142 @@
+﻿@model FitLogApp.Models.WorkoutRoutine
+
+@{
+    ViewData["Title"] = $"{Model.Name} - Details";
+    var exercises = Model.Exercises ?? new List<FitLogApp.Models.Exercise>();
+    var totalVolume = exercises.Sum(e => e.Sets * e.Reps * e.Weight);
+    var completedCount = exercises.Count(e => e.isCompleted);
+    var completionPercent = exercises.Any() ? (int)Math.Round((double)completedCount / exercises.Count * 100) : 0;
+}
+
+<div class="container-fluid p-0">
+    <!-- Top Navigation -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <a asp-action="Index" class="text-secondary text-decoration-none small d-inline-flex align-items-center gap-1 mb-1">
+                <i class="bi bi-arrow-left"></i> Back to Routines
+            </a>
+            <h3 class="fw-bold text-dark mb-0">@Model.Name</h3>
+        </div>
+        <div class="d-flex gap-2">
+            <a asp-controller="Exercise" asp-action="Create" asp-route-routineId="@Model.ID" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold d-inline-flex align-items-center gap-2 shadow-sm">
+                <i class="bi bi-plus-lg"></i> Add Exercise
+            </a>
+        </div>
+    </div>
+
+    <!-- Routine Metrics Row -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="saas-card h-100">
+                <span class="text-secondary small fw-bold text-uppercase">Target Muscle</span>
+                <h4 class="fw-bold text-dark mt-2 mb-0">
+                    <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2">@Model.TargetMuscle</span>
+                </h4>
+                <div class="text-muted small mt-2"><i class="bi bi-calendar3 me-1"></i> Scheduled: @Model.DaysOfWeek</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="saas-card h-100">
+                <span class="text-secondary small fw-bold text-uppercase">Total Workout Volume</span>
+                <h3 class="fw-bold text-dark mt-2 mb-0">@totalVolume.ToString("N0") <span class="fs-6 text-muted fw-normal">kg</span></h3>
+                <div class="text-secondary small mt-2">Cumulative calculated tonnage</div>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <div class="saas-card h-100">
+                <span class="text-secondary small fw-bold text-uppercase">Completion Rate</span>
+                <div class="d-flex align-items-center justify-content-between mt-2">
+                    <h3 class="fw-bold text-dark mb-0">@completionPercent%</h3>
+                    <span class="badge bg-success-subtle text-success rounded-pill px-2 py-1 small">@completedCount / @exercises.Count Done</span>
+                </div>
+                <div class="progress mt-2" style="height: 6px;">
+                    <div class="progress-bar bg-success" role="progressbar" style="width: @completionPercent%"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Exercise Table Sub-Card -->
+    <div class="saas-card">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="fw-bold text-dark mb-0">Exercise List</h6>
+            <span class="text-secondary small">@exercises.Count exercise(s) logged</span>
+        </div>
+
+        @if (!exercises.Any())
+        {
+            <div class="text-center py-5">
+                <div class="rounded-circle bg-light d-inline-flex align-items-center justify-content-center p-3 mb-3 text-secondary" style="width: 54px; height: 54px;">
+                    <i class="bi bi-activity fs-3"></i>
+                </div>
+                <h5 class="fw-bold text-dark mb-1">No exercises logged yet</h5>
+                <p class="text-secondary small mb-3">Start populating your routine with target movements, sets, and rep targets.</p>
+                <a asp-controller="Exercise" asp-action="Create" asp-route-routineId="@Model.ID" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold">
+                    <i class="bi bi-plus-lg me-1"></i> Add First Exercise
+                </a>
+            </div>
+        }
+        else
+        {
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="text-secondary small">
+                        <tr>
+                            <th class="ps-3 border-0">EXERCISE</th>
+                            <th class="border-0 text-center">SETS</th>
+                            <th class="border-0 text-center">REPS</th>
+                            <th class="border-0 text-center">WEIGHT</th>
+                            <th class="border-0 text-center">STATUS</th>
+                            <th class="border-0 text-end pe-3">ACTIONS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var exercise in exercises)
+                        {
+                            <tr>
+                                <td class="ps-3">
+                                    <span class="fw-bold @(exercise.isCompleted ? "text-decoration-line-through text-muted" : "text-dark")">
+                                        @exercise.Name
+                                    </span>
+                                </td>
+                                <td class="text-center font-monospace">@exercise.Sets</td>
+                                <td class="text-center font-monospace">@exercise.Reps</td>
+                                <td class="text-center font-monospace">@exercise.Weight kg</td>
+                                <td class="text-center">
+                                    <form asp-controller="Exercise" asp-action="ToggleStatus" asp-route-id="@exercise.ID" method="post" class="d-inline m-0">
+                                        <input type="hidden" name="returnUrl" value="@Context.Request.Path" />
+                                        <button type="submit" class="btn btn-link p-0 border-0 text-decoration-none shadow-none" title="Toggle Done">
+                                            @if (exercise.isCompleted)
+                                            {
+                                                <span class="badge bg-success-subtle text-success rounded-pill px-3 py-1">
+                                                    <i class="bi bi-check-circle-fill me-1"></i> Done
+                                                </span>
+                                            }
+                                            else
+                                            {
+                                                <span class="badge bg-secondary-subtle text-secondary rounded-pill px-3 py-1">
+                                                    <i class="bi bi-circle me-1"></i> Pending
+                                                </span>
+                                            }
+                                        </button>
+                                    </form>
+                                </td>
+                                <td class="text-end pe-3">
+                                    <form asp-controller="Exercise" asp-action="Delete" asp-route-id="@exercise.ID" method="post" class="d-inline"
+                                          onsubmit="return confirm('Remove @exercise.Name from this routine?');">
+                                        <input type="hidden" name="routineId" value="@Model.ID" />
+                                        <button type="submit" class="btn btn-sm btn-outline-danger border-0 rounded-circle" title="Delete Exercise">
+                                            <i class="bi bi-trash-fill"></i>
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</div>

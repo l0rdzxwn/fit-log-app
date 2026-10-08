@@ -50,6 +50,14 @@ namespace FitLogApp.Controllers
             return View(routine);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Details(int id)
+        {
+            var currUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var routine = await _context.Routines.Include(e => e.Exercises).FirstOrDefaultAsync(r => r.ID == id && r.UserID == currUserID);
+            return View(routine);
+        }
+
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
