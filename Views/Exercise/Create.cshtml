@@ -1,0 +1,77 @@
+﻿@model FitLogApp.Models.Exercise
+
+@{
+    ViewData["Title"] = "Add Exercise";
+}
+
+<div class="container-fluid p-0" style="max-width: 650px;">
+    <!-- Back Link -->
+    <div class="mb-3">
+        <a asp-controller="Routine" asp-action="Details" asp-route-id="@Model.RoutineID" class="text-secondary text-decoration-none small d-inline-flex align-items-center gap-1">
+            <i class="bi bi-arrow-left"></i> Back to Routine
+        </a>
+    </div>
+
+    <!-- Form Card -->
+    <div class="saas-card shadow-sm border-0 p-4 p-md-5">
+        <div class="mb-4">
+            <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-1 mb-2 fw-semibold">New Movement</span>
+            <h3 class="fw-bold text-dark mb-1">Add Exercise</h3>
+            <p class="text-secondary small mb-0">Log target workload parameters for this routine.</p>
+        </div>
+
+        <form asp-controller="Exercise" asp-action="Create" method="post">
+            <div asp-validation-summary="ModelOnly" class="alert alert-danger rounded-3 py-2 small mb-4" role="alert"></div>
+
+            <!-- Hidden Foreign Key Binding -->
+            <input type="hidden" asp-for="RoutineID" />
+
+            <!-- Exercise Name -->
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label fw-semibold text-dark small">Exercise Name</label>
+                <input asp-for="Name" class="form-control rounded-3 py-2 px-3" placeholder="e.g., Incline Dumbbell Bench Press" />
+                <span asp-validation-for="Name" class="text-danger small"></span>
+            </div>
+
+            <!-- Sets & Reps Inputs -->
+            <div class="row g-3 mb-3">
+                <div class="col-6">
+                    <label asp-for="Sets" class="form-label fw-semibold text-dark small">Sets</label>
+                    <input asp-for="Sets" type="number" class="form-control rounded-3 py-2 px-3" min="1" max="100" />
+                    <span asp-validation-for="Sets" class="text-danger small"></span>
+                </div>
+                <div class="col-6">
+                    <label asp-for="Reps" class="form-label fw-semibold text-dark small">Reps</label>
+                    <input asp-for="Reps" type="number" class="form-control rounded-3 py-2 px-3" min="1" max="500" />
+                    <span asp-validation-for="Reps" class="text-danger small"></span>
+                </div>
+            </div>
+
+            <!-- Working Weight Input -->
+            <div class="mb-4">
+                <label asp-for="Weight" class="form-label fw-semibold text-dark small">Weight (kg)</label>
+                <div class="input-group">
+                    <input asp-for="Weight" type="number" step="0.5" class="form-control rounded-start-3 py-2 px-3" placeholder="0.0" />
+                    <span class="input-group-text bg-light text-secondary rounded-end-3">kg</span>
+                </div>
+                <span asp-validation-for="Weight" class="text-danger small"></span>
+            </div>
+
+            <!-- Form Actions -->
+            <div class="d-flex align-items-center justify-content-end gap-2 pt-2 border-top">
+                <a asp-controller="Routine" asp-action="Details" asp-route-id="@Model.RoutineID" class="btn btn-light rounded-pill px-4 py-2 text-secondary fw-semibold">
+                    Cancel
+                </a>
+                <button type="submit" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold shadow-sm">
+                    Save Exercise
+                </button>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
