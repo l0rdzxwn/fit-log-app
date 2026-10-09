@@ -20,12 +20,15 @@ namespace FitLogApp.Controllers
             _context = context;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
-            return View();
+            var currUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var exercises = await _context.Exercises.Include(r => r.WorkoutRoutine).Where(e => e.RoutineID == e.WorkoutRoutine.ID && e.WorkoutRoutine.UserID == currUserID).ToListAsync();
+            return View(exercises);
         }
 
-        [HttpGet]
+        
         [HttpGet]
         public IActionResult Create(int routineId)
         {
