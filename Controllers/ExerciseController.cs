@@ -29,12 +29,8 @@ namespace FitLogApp.Controllers
         [HttpGet]
         public IActionResult Create(int routineId)
         {
-            var exercise = new Exercise
-            {
-                RoutineID = routineId
-            };
-
-            return View(exercise);
+            ViewBag.routineID = routineId;
+            return View();
         }
 
         [HttpPost]
@@ -54,7 +50,7 @@ namespace FitLogApp.Controllers
             {
                 await _context.Exercises.AddAsync(exercise);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return RedirectToAction("Details", "Routine", new { id = exercise.RoutineID });
             }
 
             return View(exercise);
