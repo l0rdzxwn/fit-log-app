@@ -24,7 +24,10 @@ namespace FitLogApp.Controllers
         public async Task<IActionResult> Index()
         {
             var currUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            var exercises = await _context.Exercises.Include(r => r.WorkoutRoutine).Where(e => e.RoutineID == e.WorkoutRoutine.ID && e.WorkoutRoutine.UserID == currUserID).ToListAsync();
+            var exercises = await _context.Exercises
+                .Include(r => r.WorkoutRoutine)
+                .Where(e => e.RoutineID == e.WorkoutRoutine.ID && e.WorkoutRoutine.UserID == currUserID)
+                .ToListAsync();
             return View(exercises);
         }
 
