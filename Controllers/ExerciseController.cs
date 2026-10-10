@@ -72,5 +72,17 @@ namespace FitLogApp.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("Details", "Routine", new { id = exercise.RoutineID });
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> ToggleStatus(int id)
+        {
+            var exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.ID == id);
+            exercise.isCompleted = !exercise.isCompleted;
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Routine", new { id = exercise.RoutineID });
+        }
    }
+
+
 }
