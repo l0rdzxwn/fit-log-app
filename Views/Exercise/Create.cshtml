@@ -7,7 +7,7 @@
 <div class="container-fluid p-0" style="max-width: 650px;">
     <!-- Back Link -->
     <div class="mb-3">
-        <a asp-controller="Routine" asp-action="Details" asp-route-id="@Model.RoutineID" class="text-secondary text-decoration-none small d-inline-flex align-items-center gap-1">
+        <a asp-controller="Routine" asp-action="Details" asp-route-id="@ViewBag.RoutineID" class="text-secondary text-decoration-none small d-inline-flex align-items-center gap-1">
             <i class="bi bi-arrow-left"></i> Back to Routine
         </a>
     </div>
@@ -59,7 +59,7 @@
 
             <!-- Form Actions -->
             <div class="d-flex align-items-center justify-content-end gap-2 pt-2 border-top">
-                <a asp-controller="Routine" asp-action="Details" asp-route-id="@Model.RoutineID" class="btn btn-light rounded-pill px-4 py-2 text-secondary fw-semibold">
+                <a asp-controller="Routine" asp-action="Details" asp-route-id="@ViewBag.RoutineID" class="btn btn-light rounded-pill px-4 py-2 text-secondary fw-semibold">
                     Cancel
                 </a>
                 <button type="submit" class="btn btn-dark rounded-pill px-4 py-2 fw-semibold shadow-sm">
