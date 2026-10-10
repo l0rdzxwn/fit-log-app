@@ -61,5 +61,16 @@ namespace FitLogApp.Controllers
 
             return View(exercise);
         }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Delete(int id)
+        {
+            var currUserID = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var exercise = await _context.Exercises.FirstOrDefaultAsync(e => e.ID == id);
+            _context.Remove(exercise);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("Details", "Routine", new { id = exercise.RoutineID });
+        }
    }
 }
